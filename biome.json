@@ -19,47 +19,43 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-      "recommended": false,
-      "complexity": {
-        "noBannedTypes": "off",
-        "noStaticOnlyClass": "off",
-        "noThisInStatic": "off",
-        "noForEach": "off",
-        "useLiteralKeys": "off",
-        "noUselessEmptyExport": "off"
-      },
-      "performance": {
-        "noAccumulatingSpread": "off"
-      },
-      "correctness": {
-        "noSwitchDeclarations": "off"
-      },
-      "style": {
-        "noUselessElse": "warn",
-        "useNumberNamespace": "off",
-        "useNodejsImportProtocol": "off",
-        "noInferrableTypes": "off",
-        "useConst": "off",
-        "noParameterAssign": "off",
-        "noNonNullAssertion": "off",
-        "noUnusedTemplateLiteral": "off",
-        "useEnumInitializers": "off",
-        "useImportType": {
-          "level": "off",
-          "fix": "safe"
-        },
-        "useTemplate": {
-          "level": "off",
-          "fix": "unsafe"
-        }
-      },
-      "suspicious": {
-        "noThenProperty": "off",
-        "noGlobalIsNan": "off",
-        "noAssignInExpressions": "off",
-        "noExplicitAny": "info"
-      }
-    }
+			"recommended": true,
+			"complexity": {
+				"noBannedTypes": "off",
+				"noStaticOnlyClass": "off",
+				"noThisInStatic": "off",
+				"noForEach": "off",
+				"useLiteralKeys": "off",
+				"noUselessEmptyExport": "off"
+			},
+			"performance": {
+				"noAccumulatingSpread": "off"
+			},
+			"style": {
+				"noUselessElse": "warn",
+				"useNodejsImportProtocol": "off",
+				"noInferrableTypes": "off",
+				"useConst": "off",
+				"noParameterAssign": "off",
+				"noNonNullAssertion": "off",
+				"noUnusedTemplateLiteral": "off",
+				"useEnumInitializers": "off",
+				"useImportType": {
+					"level": "off",
+					"fix": "safe"
+				},
+				"useTemplate": {
+					"level": "off",
+					"fix": "unsafe"
+				}
+			},
+			"suspicious": {
+				"noThenProperty": "off",
+				"noGlobalIsNan": "off",
+				"noAssignInExpressions": "off",
+				"noExplicitAny": "off"
+			}
+		}
 	},
 	"javascript": {
 		"formatter": {
@@ -72,9 +68,10 @@
 			"bracketSameLine": false,
 			"quoteStyle": "double",
 			"attributePosition": "auto",
-			"lineWidth": 140,
 			"indentStyle": "tab",
-			"indentWidth": 4
+			"indentWidth": 4,
+			"lineEnding": "lf",
+			"lineWidth": 140
 		}
 	},
 	"overrides": [
@@ -83,8 +80,9 @@
 			"formatter": {
 				"enabled": true,
 				"indentStyle": "tab",
-				"lineWidth": 140,
-				"indentWidth": 4
+				"indentWidth": 4,
+				"lineEnding": "lf",
+				"lineWidth": 140
 			}
 		}
 	]

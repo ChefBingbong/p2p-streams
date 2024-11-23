@@ -24,6 +24,7 @@ async function main() {
 //   await node.tcp.dial(node.nodeInfo.port.toString(), {});
   const stream = await node.tcp.dial(nodeId2.toString(), {});
 
+  // await delay(3000)
 
   const x2 =  await pipe(
      ["Hello", " ", "p2p", " ", "world", "!"].map((str) =>
@@ -32,11 +33,32 @@ async function main() {
      stream.stream
    );
 
-   // Handle the response from the server (nodeId2)
+  //  Handle the response from the server (nodeId2)
   let response = "";
   for await (const chunk of stream.stream.source) {
     response += chunk.toString();
+    console.log('Response:', chunk.toString());
   }
+
+
+
+  // const stream2 = await node.tcp.dial(nodeId2.toString(), {});
+
+  // await delay(3000)
+
+  // const x22 =  await pipe(
+  //    ["Hello", " ", "p2p", " ", "world", "!"].map((str) =>
+  //      uint8ArrayFromString(str)
+  //    ),
+  //    stream2.stream
+  //  );
+
+  // //  Handle the response from the server (nodeId2)
+  // let response2 = "";
+  // for await (const chunk of stream2.stream.source) {
+  //   response += chunk.toString();
+  //   console.log('Response:', chunk.toString());
+  // }
 
   console.log('Received response from nodeId2:', response);
   
