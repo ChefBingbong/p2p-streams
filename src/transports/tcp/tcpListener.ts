@@ -7,16 +7,16 @@ import { NodeEvents } from "../../node/node";
 import { CLOSE_TIMEOUT, MultiaddrConnection, SOCKET_TIMEOUT, toMultiaddrConnection } from "./toSoketConnection";
 
 enum TCPListenerStatusCode {
-	/**
-	 * When server object is initialized but we don't know the listening address
-	 * yet or the server object is stopped manually, can be resumed only by
-	 * calling listen()
-	 **/
 	INACTIVE = 0,
 	ACTIVE = 1,
-	/* During the connection limits */
 	PAUSED = 2,
 }
+
+interface HandshakeMessage {
+	type: string;
+	message: string;
+}
+
 export interface ListenerEvents {
 	"connection:open": CustomEvent<any>;
 	listening: CustomEvent;
@@ -56,6 +56,10 @@ export class TcpListener extends TypedEventEmitter<ListenerEvents> {
 				console.log("listen err", err);
 				this.safeDispatchEvent("error", { detail: err });
 			})
+			.on("connection", (connection) => {
+				console.log("connection established from", connection.address());
+				this.events.safeDispatchEvent("connection:open", { detail: connection });
+			})
 			.on("close", (c) => {
 				console.log("connection closed", c);
 
@@ -88,21 +92,26 @@ export class TcpListener extends TypedEventEmitter<ListenerEvents> {
 		}
 
 		pipe(socket, async (source) => {
+			let buffer = Buffer.alloc(0);
 			for await (const chunk of source) {
-				console.log("Received chunk:", chunk.toString()); // Handle incoming stream data here
-				source.write("recieved");
+				buffer = Buffer.concat([buffer, chunk]);
+
+				const receivedMessage = JSON.parse(buffer.toString()) as HandshakeMessage;
+				if (receivedMessage.type === "HAND_SHAKE") {
+					console.log("Handshake message received:", receivedMessage);
+
+					const response: HandshakeMessage = {
+						type: "handshake",
+						message: "Handshake successful",
+					};
+					socket.write(JSON.stringify(response));
+					buffer = Buffer.alloc(0);
+				}
 			}
-			// socket.write('recieved' )
 		}).catch((err) => {
 			console.error("Error processing stream:", err);
 			socket.destroy(err);
 		});
-
-		// socket.on("data", (data) => {
-		//   console.log(data)
-		//       //  socket.write('recieved' )
-
-		// })
 
 		console.log("new inbound connection %s", maConn.remoteAddr);
 		this.sockets.add(socket);

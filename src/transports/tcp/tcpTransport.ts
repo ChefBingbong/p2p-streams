@@ -1,20 +1,16 @@
 import { Server } from "http";
-import { connect, type WebSocketOptions } from "it-ws/client";
-import { createServer, ServerOptions, WebSocketServer } from "it-ws/server";
+import { type WebSocketOptions } from "it-ws/client";
+import { WebSocketServer } from "it-ws/server";
 
-import { ClientOptions } from "ws";
+import net, { Socket } from "net";
+import type { ProgressEvent, ProgressOptions } from "progress-events";
 import { CustomProgressEvent } from "progress-events";
-import { AbortError, raceSignal } from "race-signal";
-import type { ProgressOptions, ProgressEvent } from "progress-events";
-import { DuplexWebSocket } from "it-ws/dist/src/duplex";
-import pDefer from "p-defer";
-import { pipe } from "it-pipe";
-import { TcpListener } from "./tcpListener";
-import { Socket } from "net";
-import net from "net";
-import { CLOSE_TIMEOUT, MultiaddrConnection, SOCKET_TIMEOUT, TimeoutError, toMultiaddrConnection } from "./toSoketConnection";
-import { TypedEventEmitter, TypedEventTarget } from "../../eventManager/customEventManager";
+import { AbortError } from "race-signal";
+import { ClientOptions } from "ws";
+import { TypedEventTarget } from "../../eventManager/customEventManager";
 import { NodeEvents } from "../../node/node";
+import { TcpListener } from "./tcpListener";
+import { CLOSE_TIMEOUT, MultiaddrConnection, SOCKET_TIMEOUT, TimeoutError, toMultiaddrConnection } from "./toSoketConnection";
 
 export interface DialTransportOptions<DialEvents extends ProgressEvent = ProgressEvent> extends ProgressOptions<DialEvents> {
 	u?: any;

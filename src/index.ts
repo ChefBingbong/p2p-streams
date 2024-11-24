@@ -1,4 +1,3 @@
-import { __await } from "tslib";
 import { Node } from "./node/node";
 
 export const delay = async (delayTime: number) => await new Promise((resolve) => setTimeout(resolve, delayTime));
@@ -11,16 +10,8 @@ async function main() {
 		port: nodeId,
 	});
 
-	//   const node2 = new Node2();
-
 	await node.start();
-	const x = await node.tcp.listen(node.nodeInfo);
-
-	//   await node.tcp.dial(node.nodeInfo.port.toString(), {});
-	//   const x = await node.tcp.listen(node.nodeInfo)
-	//   await node2.start();
-
-	//   Promise.all(nodes);
+	await node.tcp.listen(node.nodeInfo);
 }
 
 main().catch((error) => {

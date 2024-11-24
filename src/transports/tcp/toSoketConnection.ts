@@ -1,25 +1,21 @@
 import { Socket } from "net";
 import pDefer, { DeferredPromise } from "p-defer";
-import { duplex } from "stream-to-it";
 import { raceEvent } from "race-event";
+import { duplex } from "stream-to-it";
 
 /**
  * A "transform" is both a sink and a source where the values it consumes
  * and the values that can be consumed from it are connected in some way.
  * It is a function that takes a source and returns a source.
  */
-export interface Transform<A, B = A> {
-	(source: A): B;
-}
+export type Transform<A, B = A> = (source: A) => B;
 
 /**
  * A "sink" is something that consumes (or drains) a source. It is a
  * function that takes a source and iterates over it. It optionally returns
  * a value.
  */
-export interface Sink<Source, R = unknown> {
-	(source: Source): R;
-}
+export type Sink<Source, R = unknown> = (source: Source) => R;
 
 /**
  * A "source" is something that can be consumed. It is an iterable object.
