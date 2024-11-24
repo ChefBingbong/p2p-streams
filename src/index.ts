@@ -1,7 +1,5 @@
 import { Node } from "./node/node";
 
-export const delay = async (delayTime: number) => await new Promise((resolve) => setTimeout(resolve, delayTime));
-
 async function main() {
 	const nodeId = Number(3000);
 	const node = new Node({
