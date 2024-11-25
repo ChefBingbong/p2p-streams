@@ -20,7 +20,7 @@ async function main() {
 	const stream = await node.tcp.dial(nodeId2.toString(), {});
 	const serializedMessage = JSON.stringify({
 		type: "HAND_SHAKE",
-		message: `handaske recieved from node ${node.port}`,
+		message: `handaske recieved from node ${node.nodeInfo.port}`,
 	});
 	const messageUint8Array = uint8ArrayFromString(serializedMessage);
 
